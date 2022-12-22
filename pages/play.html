@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>The cooler buzzer website</title>
+		<link rel="stylesheet" href="styleMain.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https:/socket.io/socket.io.js"></script>
+		<script>
+			$(document).ready(function() {
+				var socket = io();
+				let startTime;
+				let queryString = new URL(location.href);
+				let userName = queryString.searchParams.get("user");
+				$("#message").html("hi "+userName+" :]")
+				let teamName = queryString.searchParams.get("team");
+				let buzzerSound = new Audio('MPYosh.wav');
+				let buzzable = false;
+				$("#buzzer").css("opacity", "0.2");
+				socket.on("gameStateToClient", (currentTeam, currentScore) => {
+					$("#currentTeam").html(currentTeam);
+					$("#currentScore").html(currentScore);
+				});
+				socket.on("clearBuzzers", (currentTeam) => {
+					if (currentTeam == teamName) {
+						buzzable = true;
+						$("#buzzer").css("opacity", "1");
+			
+					} else {
+						buzzable = false;
+						$("#buzzer").css("opacity", "0.2");
+					}
+					$("#buzzList").html("");
+				});
+				socket.on("buzzListToClient", (buzzList) => {
+					//play sound for first buzz in
+					if ($("#buzzList").html() == "") {
+						buzzerSound.play();
+					}
+					$("#buzzList").html(buzzList.join());
+					if (buzzList.slice(-1) == userName) {
+						let ping =  new Date().getTime() - startTime;
+						console.log("ping: "+ping);
+					}
+				});
+				
+				$(document).keydown(function(e) {
+					if(e.which == 32) {
+						buzzIn();
+					}
+				});
+				$("#buzzer").mousedown(function() {
+					buzzIn();
+				});
+				function buzzIn() {
+					if (buzzable) {
+						buzzable = false;
+						$("#buzzer").css("opacity", "0.2");
+						startTime = new Date().getTime();
+						socket.emit("buzzerPressed", userName);
+					}
+				}
+				$("#buzzerOptions").contents().mousedown(function() {
+					buzzerSound = new Audio($(this).attr("id")+".wav");
+					$("#buzzer").attr("src", $(this).attr("id")+".png" )
+					buzzerSound.play();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<h1 id="message"></h1>
+		</header>
+		<div class="interface">
+			<p id="currentTeam"></p>
+			<p id="currentScore"></p>
+			<br>
+			<img id="buzzer" src="MPYosh.png" alt="The buzzer" style="width: 200px">
+			<br>
+			<p id="buzzList"></p>
+		</div>
+		<div id="buzzerOptions">
+			<img id="MPYosh" src="MPYosh.png">
+			<img id="MPDog" src="MPDog.png">
+			<img id="MPCat" src="MPCat.png">
+			<img id="Wow" src="Wow.png">
+			<img id="TheNumberEight" src="TheNumberEight.png">
+			<img id="Ooh" src="Ooh.png">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>The cooler buzzer website</title>
+		<link rel="stylesheet" href="styleMain.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https:/socket.io/socket.io.js"></script>
+		<script>
+			$(document).ready(function() {
+
+				// var socket = io();
+				// const buzzerSound = new Audio('TheNumberEight.wav');
+				// // const buzzerSound = new Audio('Cat.wav');
+				// $("#buzzer").mousedown(function() {
+				// 	buzzerSound.play();
+				// 	socket.emit("buzzerPressed", userName);
+				// });
+				const okdesuka = new Audio('Okdesuka.wav');
+				$("#userName").change(function() {
+					okdesuka.play();
+					$("#playerLink").attr("href", "/play?user="+this.value+"&team=Players");
+					$("#playerLink").html("Players");
+					
+					$("#chaserLink").attr("href", "/play?user="+this.value+"&team=Chasers");
+					$("#chaserLink").html("Chasers");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="interface">
+			<header>
+				<h1>Welcome!</h1>
+			</header>
+			Your name, please:
+			<br>
+			<input type="text" id="userName" placeholder="User name">
+			<br>
+			<br>
+			Then pick a team:
+			<br>
+			<br>
+			<a id="playerLink"></a>
+			<br>
+			<br>
+			<a id="chaserLink"></a>
+			<br>
+			<br>
+			<br>
+			<br>
+			Or <a href="/host">host</a>
+		</div>
+	</body>
+</html>
