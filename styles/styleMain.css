@@ -9,8 +9,14 @@ a, a:visited {
     color: rgb(199, 147, 255);
 }
 
-.interface {
+#interface {
     text-align: center;
+}
+
+#userListPanel {
+    position: absolute;
+    right: 100px;
+    top: 100px;
 }
 
 #buzzerOptions img {
@@ -21,4 +27,11 @@ a, a:visited {
     position: absolute;
     bottom: 10px;
     left: 10px;
+}
+
+#message {
+    position: absolute;
+    font-size: 15px;
+    top: 0px;
+    left: 20px;
 }

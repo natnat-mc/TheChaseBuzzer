@@ -3,26 +3,33 @@
 	<head>
 		<title>The cooler buzzer website</title>
 		<link rel="stylesheet" href="styleMain.css">
+		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src="https:/socket.io/socket.io.js"></script>
+		<script src="http:/socket.io/socket.io.js"></script>
 		<script>
 			$(document).ready(function() {
 				var socket = io();
-				let buzzerSound = new Audio('MPYosh.wav');
-				socket.on("gameStateToClient", (currentTeam, currentScore) => {
-					$("#currentTeam").html(currentTeam);
-					$("#currentScore").html(currentScore);
+
+				let buzzerOptions = setupBuzzerOptions();
+				let buzzerSound = new Audio(buzzerOptions[0]+".wav");
+				
+
+				socket.on("userListsToClient", (playerList, chaserList) => {
+					userListsToClient(playerList, chaserList);
 				});
+
+				socket.on("gameStateToClient", (currentTeam, currentScore) => {
+					gameStateToClient(currentTeam, currentScore);
+				});
+
 				socket.on("clearBuzzers", () => {
 					$("#buzzList").html("");
 				});
+
 				socket.on("buzzListToClient", (buzzList) => {
-					//play sound for first buzz in
-					if ($("#buzzList").html() == "") {
-						buzzerSound.play();
-					}
-					$("#buzzList").html(buzzList.join());
+					buzzListToClient(buzzList, buzzerSound);
 				});
+
 				$("#plus0").click(function() {
 					socket.emit("scoresToServer", 0);
 				});
@@ -41,26 +48,26 @@
 		</script>
 	</head>
 	<body>
-		<header>
-			<h1>hi quetz :]</h1>
-		</header>
-		<div class="interface">
+		<p id="message">hi quetz :]</p>
+		<div id="interface">
 			<p id="currentTeam"></p>
 			<p id="currentScore"></p>
+			<!-- <br> -->
+			(all buttons clear buzzers)
 			<br>
-			<button id="plus0" type="button">Clear buzzers</button>
+			<button id="plus0" type="button">+0 Points</button>
 			<button id="plus1" type="button">+1 Point</button>
 			<button id="plus2" type="button">+2 Points</button>
 			<br>
 			<p id="buzzList"></p>
 		</div>
+		<div id="userListPanel">
+			Players:
+			<ul id="playerList"></ul>
+			Chasers:
+			<ul id="chaserList"></ul>
+		</div>
 		<div id="buzzerOptions">
-			<img id="MPYosh" src="MPYosh.png">
-			<img id="MPDog" src="MPDog.png">
-			<img id="MPCat" src="MPCat.png">
-			<img id="Wow" src="Wow.png">
-			<img id="TheNumberEight" src="TheNumberEight.png">
-			<img id="Ooh" src="Ooh.png">
 		</div>
 	</body>
 </html>

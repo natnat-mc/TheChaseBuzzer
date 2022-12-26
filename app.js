@@ -1,23 +1,25 @@
 
-// const http = require('http');
-const https = require('https');
+const http = require('http');
+// const https = require('https');
 const express = require('express');
 const app = express();
 const fs = require('fs')
 const { Server } = require("socket.io");
 
 var options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  // key: fs.readFileSync('key.pem'),
+  // cert: fs.readFileSync('cert.pem')
 };
 
-const server = https.createServer(options, app);
+const server = http.createServer(options, app);
 const io = new Server(server, {
   maxHttpBufferSize: 1e8
 });
 
 const userMap = new Map();
 let buzzList = [];
+let playerList = [];
+let chaserList = [];
 
 const teamsList = ["Players","Chasers"]
 const teamsScore = [0,0]
@@ -58,6 +60,24 @@ io.on("connection", (socket) => {
     //todo ping test
     io.emit("clearBuzzers", teamsList[currentTeamNumber]);
   });
+
+
+
+  socket.on("registerUser", (userName, teamName) => {
+    console.log("reg");
+    if (teamName == "Players") {
+      if (!playerList.includes(userName)) {
+        playerList.push(userName);
+      }
+    } 
+    else if (teamName == "Chasers") {
+      if (!chaserList.includes(userName)) {
+        chaserList.push(userName);
+      }
+    }
+    io.emit("userListsToClient", playerList, chaserList);
+  });
+
   // socket.emit("playerRoundScoreToClient");
   // socket.emit("chaserRoundScoreToClient");
   // socket.emit("currentTeamToClient");
@@ -78,6 +98,10 @@ app.get("/host", (request, response) => {
 
 app.get("/play", (request, response) => {
   response.sendFile("pages/play.html", {root: __dirname });
+});
+
+app.get("/browserFunctions.js", (request, response) => {
+  response.sendFile("browserFunctions.js", {root: __dirname });
 });
 
 //all files in these folders can be accessed with a GET request of the filename
