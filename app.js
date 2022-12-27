@@ -17,34 +17,39 @@ const io = new Server(server, {
 });
 
 const userMap = new Map();
-let buzzList = [];
-let playerList = [];
-let chaserList = [];
+let buzzInfo = [];
+let userInfo = new Object();//Each user has properties, and is stored as a property of userInfo
 
 const teamsList = ["Players","Chasers"]
+
 const teamsScore = [0,0]
 let currentTeamNumber = 0;
 io.on("connection", (socket) => {
   console.log("a user connected");
-  // console.log(userMap);
-  // userMap.set(socket.id, "Guest");
-  // console.log(socket.client.conn.id);
-  // console.log(socket.client.id);
-  // console.log(socket.id);
-  // console.log(userMap);
 
   socket.on("disconnect", () => {
       console.log("user disconnected");
-      console.log(userMap);
   });
 
   //initial info on connection
   socket.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
-  // socket.emit("buzzListToClient", buzzList);
   
-  socket.on("buzzerPressed", (userName) => {
-    buzzList.push(userName);
-    io.emit("buzzListToClient", buzzList);
+  socket.on("buzzerPressed", (newUserName, newTimeStamp) => {
+    let firstBuzzTimeStamp = (function() { 
+      if (buzzInfo.length == 0) {
+        return newTimeStamp
+      }
+      else {
+        return buzzInfo[0].timeStamp;
+      }
+    })();
+    buzzInfo.push({ 
+      userName: newUserName,
+      timeStamp: newTimeStamp,
+      lateTime: newTimeStamp-firstBuzzTimeStamp
+    });
+    
+    io.emit("buzzInfoToClient", buzzInfo);
   });
  
   socket.on("scoresToServer", score => {
@@ -55,33 +60,20 @@ io.on("connection", (socket) => {
       // io.emit("switchCurrentteam");
       // io.emit("dataToClient", buzzList, teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
     }
-    buzzList = [];
+    buzzInfo = [];
     io.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
-    //todo ping test
     io.emit("clearBuzzers", teamsList[currentTeamNumber]);
+    io.emit("userInfoToClient", userInfo);//resets the buzzer info 
   });
 
 
 
-  socket.on("registerUser", (userName, teamName) => {
-    console.log("reg");
-    if (teamName == "Players") {
-      if (!playerList.includes(userName)) {
-        playerList.push(userName);
-      }
-    } 
-    else if (teamName == "Chasers") {
-      if (!chaserList.includes(userName)) {
-        chaserList.push(userName);
-      }
+  socket.on("registerUser", (newUserName, newTeamName) => {
+    userInfo[newUserName] = {
+      teamName: newTeamName
     }
-    io.emit("userListsToClient", playerList, chaserList);
+    io.emit("userInfoToClient", userInfo);
   });
-
-  // socket.emit("playerRoundScoreToClient");
-  // socket.emit("chaserRoundScoreToClient");
-  // socket.emit("currentTeamToClient");
-  // socket.emit("buzzListToClient");
 });
 
 // const io = new Server(server);

@@ -13,9 +13,8 @@
 				let buzzerOptions = setupBuzzerOptions();
 				let buzzerSound = new Audio(buzzerOptions[0]+".wav");
 				
-
-				socket.on("userListsToClient", (playerList, chaserList) => {
-					userListsToClient(playerList, chaserList);
+				socket.on("userInfoToClient", (userInfo) => {
+					userInfoToClient(userInfo);
 				});
 
 				socket.on("gameStateToClient", (currentTeam, currentScore) => {
@@ -23,11 +22,11 @@
 				});
 
 				socket.on("clearBuzzers", () => {
-					$("#buzzList").html("");
+					$("#firstBuzz").html("");
 				});
 
-				socket.on("buzzListToClient", (buzzList) => {
-					buzzListToClient(buzzList, buzzerSound);
+				socket.on("buzzInfoToClient", (buzzInfo) => {
+					buzzInfoToClient(buzzInfo, buzzerSound);
 				});
 
 				$("#plus0").click(function() {
@@ -51,21 +50,21 @@
 		<p id="message">hi quetz :]</p>
 		<div id="interface">
 			<p id="currentTeam"></p>
+			Progress:
 			<p id="currentScore"></p>
 			<!-- <br> -->
-			(all buttons clear buzzers)
-			<br>
+			<p style="font-size: 15px">(all buttons clear buzzers)</p>
 			<button id="plus0" type="button">+0 Points</button>
 			<button id="plus1" type="button">+1 Point</button>
 			<button id="plus2" type="button">+2 Points</button>
 			<br>
-			<p id="buzzList"></p>
+			<p id="firstBuzz"></p>
 		</div>
 		<div id="userListPanel">
 			Players:
-			<ul id="playerList"></ul>
+			<ul id="PlayersList"></ul>
 			Chasers:
-			<ul id="chaserList"></ul>
+			<ul id="ChasersList"></ul>
 		</div>
 		<div id="buzzerOptions">
 		</div>

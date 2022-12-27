@@ -11,7 +11,7 @@
 				var socket = io();
 
 
-				let startTime;//for ping check
+				let buzzInTime;//for ping check
 				let queryString = new URL(location.href);
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
@@ -27,8 +27,8 @@
 
 				socket.emit("registerUser", userName, teamName);
 
-				socket.on("userListsToClient", (playerList, chaserList) => {
-					userListsToClient(playerList, chaserList);
+				socket.on("userInfoToClient", (userInfo) => {
+					userInfoToClient(userInfo);
 				});
 
 				socket.on("gameStateToClient", (currentTeam, currentScore) => {
@@ -44,15 +44,15 @@
 						buzzable = false;
 						$("#buzzer").css("opacity", "0.2");
 					}
-					$("#buzzList").html("");
+					$("#firstBuzz").html("");
 				});
 
-				socket.on("buzzListToClient", (buzzList) => {
-					buzzListToClient(buzzList, buzzerSound);
-					if (buzzList.slice(-1) == userName) {
-						let ping =  new Date().getTime() - startTime;
-						console.log("ping: "+ping);
-					}
+				socket.on("buzzInfoToClient", (buzzInfo) => {
+					buzzInfoToClient(buzzInfo, buzzerSound);
+					// if (buzzList.slice(-1) == userName) {
+					// 	let ping =  new Date().getTime() - buzzInTime;
+					// 	console.log("ping: "+ping);
+					// }
 				});
 				
 				$(document).keydown(function(e) {
@@ -69,8 +69,8 @@
 					if (buzzable) {
 						buzzable = false;
 						$("#buzzer").css("opacity", "0.2");
-						startTime = new Date().getTime();
-						socket.emit("buzzerPressed", userName);
+						buzzInTime = new Date().getTime();
+						socket.emit("buzzerPressed", userName, buzzInTime);
 					}
 				}
 
@@ -86,17 +86,18 @@
 		<p id="message"></p>
 		<div id="interface">
 			<p id="currentTeam"></p>
+			Progress:
 			<p id="currentScore"></p>
 			<br>
 			<img id="buzzer" alt="The buzzer" style="width: 200px">
 			<br>
-			<p id="buzzList"></p>
+			<p id="firstBuzz"></p>
 		</div>
 		<div id="userListPanel">
 			Players:
-			<ul id="playerList"></ul>
+			<ul id="PlayersList"></ul>
 			Chasers:
-			<ul id="chaserList"></ul>
+			<ul id="ChasersList"></ul>
 		</div>
 		<div id="buzzerOptions">
 		</div>
