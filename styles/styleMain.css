@@ -59,8 +59,14 @@ ul {
     left: 20px;
 }
 
-@media (max-width: 576px) {
- 
+#egg {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 14px;
+}
+
+@media (max-width: 600px) {
     #userListPanel {
         top: 80px;
         width: 500px;
@@ -68,7 +74,7 @@ ul {
         font-size: 15px;
     }
     #PlayersList {
-        left: 0px;
+        left: 10px;
     }
     #ChasersList {
         left: 350px;

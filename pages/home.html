@@ -8,6 +8,7 @@
 		<script>
 			$(document).ready(function() {
 				const okSsuka = new Audio('OkSsuka.wav');
+				const egg = new Audio('Egg.wav');
 				$("#userName").change(function() {
 					okSsuka.play();
 					$("#playerLink").attr("href", "/play?user="+this.value+"&team=Players");
@@ -16,10 +17,25 @@
 					$("#chaserLink").attr("href", "/play?user="+this.value+"&team=Chasers");
 					$("#chaserLink").html("Chasers");
 				});
+				$("#egg").click(function() {
+					if ($(this).attr("src") == "Egg1.png") {
+						$(this).attr("src", "Egg2.gif");
+						$(this).css("width", "40");
+						
+						egg.play();
+						egg.loop = true;
+					}
+					else {
+						$(this).attr("src", "Egg1.png");
+						$(this).css("width", "14");
+						egg.pause()
+					}
+				});				
 			});
 		</script>
 	</head>
 	<body>
+		<img id="egg" src="Egg1.png">
 		<div id="interface">
 			<img src="MainLogo.png">
 			<br>
