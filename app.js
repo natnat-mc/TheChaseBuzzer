@@ -112,7 +112,7 @@ app.get("/browserFunctions.js", (request, response) => {
 });
 
 //all files in these folders can be accessed with a GET request of the filename
-let assetFolders = ["styles","pages","images","audio"];
+let assetFolders = ["styles","pages","images","audio","fonts"];
 assetFolders.forEach((folderName) => {
   let folderContents = fs.readdirSync(folderName);
   folderContents.forEach((fileName) => {

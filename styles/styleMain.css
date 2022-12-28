@@ -1,8 +1,19 @@
+
+
 body {
+    font-family: 'Twoson';
     color: rgb(255, 255, 255);
     background-color: rgb(23, 23, 23);
     font-size: 25px;
     padding: 20px 60px;
+}
+
+button {
+    font-family: 'Twoson';
+}
+
+input {
+    font-family: 'Twoson';
 }
 
 a, a:visited {
@@ -22,13 +33,22 @@ a, a:visited {
 }
 
 #PlayersList {
+    /* font-family: "Lucida Console"; */
     position: absolute;
-    left: 200px;
+    left: 110px;
+    border: dashed;
+    width: 350px;
+    min-height: 130px;
+    padding-left: 5px;
 }
 
 #ChasersList {
     position: absolute;
-    left: 800px;
+    left: 724px;
+    border: dashed;
+    width: 350px;
+    min-height: 130px;
+    padding-left: 5px;
 }
 
 ul {
@@ -71,12 +91,26 @@ ul {
         top: 80px;
         width: 500px;
         margin-left: -250px;
-        font-size: 15px;
+        font-size: 11px;
     }
     #PlayersList {
-        left: 10px;
+        left: 0px;
+        width: 120px;
     }
     #ChasersList {
-        left: 350px;
+        left: 370px;
+        width: 120px;
     }
+}
+
+@font-face {
+    font-family: 'Twoson';
+    src: url('Twoson.eot');
+    src: url('Twoson.eot?#iefix') format('embedded-opentype'),
+        url('Twoson.woff2') format('woff2'),
+        url('Twoson.woff') format('woff'),
+        url('Twoson.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
 }
