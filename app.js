@@ -34,6 +34,10 @@ io.on("connection", (socket) => {
   //initial info on connection
   socket.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
   
+  socket.on("pingServer", (timeStamp) => {
+    socket.emit("pingClient", timeStamp);
+  });
+
   socket.on("buzzerPressed", (newUserName, newTimeStamp) => {
     let firstBuzzTimeStamp = (function() { 
       if (buzzInfo.length == 0) {
@@ -48,8 +52,13 @@ io.on("connection", (socket) => {
       timeStamp: newTimeStamp,
       lateTime: newTimeStamp-firstBuzzTimeStamp
     });
-    
     io.emit("buzzInfoToClient", buzzInfo);
+    // function buzzInfoToclient() {
+    //   io.emit("buzzInfoToClient", buzzInfo);
+    //   console.log(buzzInfo);
+    // }
+    // setTimeout(buzzInfoToclient, 1000);
+    // console.log(buzzInfo);
   });
  
   socket.on("scoresToServer", score => {
@@ -74,6 +83,12 @@ io.on("connection", (socket) => {
     }
     io.emit("userInfoToClient", userInfo);
   });
+
+  socket.on("unregisterUsers", () => {
+    userInfo = new Object();
+    io.emit("userInfoToClient", userInfo);
+  });
+
 });
 
 // const io = new Server(server);

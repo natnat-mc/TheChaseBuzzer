@@ -49,10 +49,11 @@
 
 				socket.on("buzzInfoToClient", (buzzInfo) => {
 					buzzInfoToClient(buzzInfo, buzzerSound);
-					// if (buzzList.slice(-1) == userName) {
-					// 	let ping =  new Date().getTime() - buzzInTime;
-					// 	console.log("ping: "+ping);
-					// }
+				});
+				
+				socket.on("pingClient", (timeStamp) => {
+					const ping = new Date().getTime() - timeStamp;
+					console.log("ping: "+ping);
 				});
 				
 				$(document).keydown(function(e) {
@@ -71,6 +72,7 @@
 						$("#buzzer").css("opacity", "0.2");
 						buzzInTime = new Date().getTime();
 						socket.emit("buzzerPressed", userName, buzzInTime);
+						socket.emit("pingServer", new Date().getTime());
 					}
 				}
 
@@ -94,10 +96,14 @@
 			<p id="firstBuzz"></p>
 		</div>
 		<div id="userListPanel">
-			Players:
-			<ul id="PlayersList"></ul>
-			Chasers:
-			<ul id="ChasersList"></ul>
+			<div id="PlayersList">
+				Players:
+				<ul></ul>
+			</div>
+			<div id="ChasersList">
+				Chasers:
+				<ul></ul>
+			</div>
 		</div>
 		<div id="buzzerOptions">
 		</div>

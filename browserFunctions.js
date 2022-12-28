@@ -7,28 +7,37 @@ function setupBuzzerOptions() {
 }
 
 function userInfoToClient(userInfo) {
-    $("#PlayersList").html("");
-    $("#ChasersList").html("");
+    $("#PlayersList").find("ul").html("");
+    $("#ChasersList").find("ul").html("");
+    console.log(userInfo);
+   
     for (const user in userInfo) {
-        $("#"+userInfo[user].teamName+"List").append("<li id="+user+">"+user+"<var></var></li>");
+        const userId = user.replaceAll(" ","_");
+        $("#"+userInfo[user].teamName+"List").find("ul").append("<li id="+userId+">"+user+"<var></var></li>");
     }
 }
 
 function gameStateToClient(currentTeam, currentScore) {
+    $("#PlayersList").css("opacity", 0.5);
+    $("#ChasersList").css("opacity", 0.5);
+    $("#"+currentTeam+"List").css("opacity", 1);
+    
     $("#currentTeam").html(currentTeam+" turn");
     $("#currentScore").html(currentScore);
 }
 
 function buzzInfoToClient(buzzInfo, buzzerSound) {
     //play sound for first buzz in
-    if (buzzInfo.length == 1) {
+    if ($("#firstBuzz").html() == "") {
         buzzerSound.play();
         $("#firstBuzz").html(buzzInfo[0].userName);
-        $("#userListPanel").find("#"+buzzInfo[0].userName).css("font-weight", 900);
-        $("#userListPanel").find("#"+buzzInfo[0].userName).find("var").html(" (BUZZ)")
+        const userId = buzzInfo[0].userName.replaceAll(" ","_");
+        $("#userListPanel").find("#"+userId).css("font-weight", 900);
+        $("#userListPanel").find("#"+userId).find("var").html(" (BUZZ)")
     }
 
     for (let i=1; i < buzzInfo.length; i++) {
-        $("#userListPanel").find("#"+buzzInfo[i].userName).find("var").html(" ("+buzzInfo[i].lateTime/1000+")");
+        const userId = buzzInfo[i].userName.replaceAll(" ","_");
+        $("#userListPanel").find("#"+userId).find("var").html(" ("+buzzInfo[i].lateTime/1000+")");
     }    
 }

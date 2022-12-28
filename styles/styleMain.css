@@ -15,8 +15,31 @@ a, a:visited {
 
 #userListPanel {
     position: absolute;
-    right: 100px;
-    top: 100px;
+    left: 50%;
+    width: 1200px;
+    margin-left: -600px;
+    top: 200px;
+}
+
+#PlayersList {
+    position: absolute;
+    left: 200px;
+}
+
+#ChasersList {
+    position: absolute;
+    left: 800px;
+}
+
+ul {
+    list-style-type: square;
+    margin: 0px;
+    padding-left: 30px;
+}
+
+#buzzer {
+    position: relative;
+    z-index: 1000;
 }
 
 #buzzerOptions img {
@@ -34,4 +57,20 @@ a, a:visited {
     font-size: 15px;
     top: 0px;
     left: 20px;
+}
+
+@media (max-width: 576px) {
+ 
+    #userListPanel {
+        top: 80px;
+        width: 500px;
+        margin-left: -250px;
+        font-size: 15px;
+    }
+    #PlayersList {
+        left: 0px;
+    }
+    #ChasersList {
+        left: 350px;
+    }
 }

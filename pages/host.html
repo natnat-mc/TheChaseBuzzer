@@ -39,6 +39,10 @@
 					socket.emit("scoresToServer", 2);
 				});
 
+				$("#unregisterUsers").click(function() {
+					socket.emit("unregisterUsers", 2);
+				});
+
 				$("#buzzerOptions").contents().mousedown(function() {
 					buzzerSound = new Audio($(this).attr("id")+".wav");
 					buzzerSound.play();
@@ -51,20 +55,27 @@
 		<div id="interface">
 			<p id="currentTeam"></p>
 			Progress:
-			<p id="currentScore"></p>
-			<!-- <br> -->
-			<p style="font-size: 15px">(all buttons clear buzzers)</p>
-			<button id="plus0" type="button">+0 Points</button>
-			<button id="plus1" type="button">+1 Point</button>
-			<button id="plus2" type="button">+2 Points</button>
+			<p id="currentScore"></p>			
+			<button id="plus0" type="button" style="width: 226px; height: 50px; margin: 5px;">+0 Points</button>
+			<br>
+			<button id="plus1" type="button" style="width: 110px; height: 50px;">+1 Point</button>
+			<button id="plus2" type="button" style="width: 110px; height: 50px;">+2 Points</button>
+			<p style="font-size: 15px; margin: 5px;">(all points buttons clear buzzers)</p>
 			<br>
 			<p id="firstBuzz"></p>
+			<br><br><br>
+			<button id="unregisterUsers" type="button" style="height: 30px;">Remove all players</button>
+			<!-- <input type="text" id="bufferInput" placeholder="Buffer"> -->
 		</div>
 		<div id="userListPanel">
-			Players:
-			<ul id="PlayersList"></ul>
-			Chasers:
-			<ul id="ChasersList"></ul>
+			<div id="PlayersList">
+				Players:
+				<ul></ul>
+			</div>
+			<div id="ChasersList">
+				Chasers:
+				<ul></ul>
+			</div>
 		</div>
 		<div id="buzzerOptions">
 		</div>

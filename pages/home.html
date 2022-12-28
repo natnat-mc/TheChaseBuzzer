@@ -7,9 +7,9 @@
 		<!-- <script src="https:/socket.io/socket.io.js"></script> -->
 		<script>
 			$(document).ready(function() {
-				const okdesuka = new Audio('Okdesuka.wav');
+				const okSsuka = new Audio('OkSsuka.wav');
 				$("#userName").change(function() {
-					okdesuka.play();
+					okSsuka.play();
 					$("#playerLink").attr("href", "/play?user="+this.value+"&team=Players");
 					$("#playerLink").html("Players");
 					
