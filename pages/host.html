@@ -44,8 +44,7 @@
 				});
 
 				$("#buzzerOptions").contents().mousedown(function() {
-					buzzerSound = new Audio($(this).attr("id")+".wav");
-					buzzerSound.play();
+					buzzerSound = selectBuzzer($(this).attr("id"));
 				});
 			});
 		</script>

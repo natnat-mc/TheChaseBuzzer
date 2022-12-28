@@ -1,5 +1,6 @@
+let buzzerOptions = ["Kirbeep","MPYosh","MPDog","MPCat","Wow","Ooh","MarioBoing","TheNumberEight","Mystery"];
 function setupBuzzerOptions() {
-    let buzzerOptions = ["Kirbeep","MPYosh","MPDog","MPCat","Wow","Ooh","MarioBoing","TheNumberEight"];
+    
     buzzerOptions.forEach((buzzerName) => {
         $("#buzzerOptions").append("<img id='"+buzzerName+"' src='"+buzzerName+".png'>");
     });
@@ -9,8 +10,6 @@ function setupBuzzerOptions() {
 function userInfoToClient(userInfo) {
     $("#PlayersList").find("ul").html("");
     $("#ChasersList").find("ul").html("");
-    console.log(userInfo);
-   
     for (const user in userInfo) {
         const userId = user.replaceAll(" ","_");
         $("#"+userInfo[user].teamName+"List").find("ul").append("<li id="+userId+">"+user+"<var></var></li>");
@@ -40,4 +39,14 @@ function buzzInfoToClient(buzzInfo, buzzerSound) {
         const userId = buzzInfo[i].userName.replaceAll(" ","_");
         $("#userListPanel").find("#"+userId).find("var").html(" ("+buzzInfo[i].lateTime/1000+")");
     }    
+}
+
+function selectBuzzer(buzzerId) {
+    if (buzzerId == "Mystery") {
+        buzzerId = buzzerOptions[Math.floor(Math.random()*8)];
+    }
+    buzzerSound = new Audio(buzzerId+".wav");
+    $("#buzzer").attr("src", buzzerId+".png" );
+    buzzerSound.play();
+    return buzzerSound;
 }

@@ -20,7 +20,6 @@
 
 				let buzzerOptions = setupBuzzerOptions();
 				let buzzerSound = new Audio(buzzerOptions[0]+".wav");
-				console.log(buzzerSound);
 				$("#buzzer").attr("src", buzzerOptions[0]+".png" );
 				$("#buzzer").css("opacity", "0.2");
 				let buzzable = false;
@@ -77,9 +76,7 @@
 				}
 
 				$("#buzzerOptions").contents().mousedown(function() {
-					buzzerSound = new Audio($(this).attr("id")+".wav");
-					$("#buzzer").attr("src", $(this).attr("id")+".png" );
-					buzzerSound.play();
+					buzzerSound = selectBuzzer($(this).attr("id"));
 				});
 			});
 		</script>
