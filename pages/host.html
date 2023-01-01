@@ -10,9 +10,6 @@
 		<script>
 			$(document).ready(function() {
 				var socket = io();
-
-				let buzzerOptions = setupBuzzerOptions();
-				let buzzerSound = new Audio(buzzerOptions[0]+".wav");
 				
 				socket.on("userInfoToClient", (userInfo) => {
 					userInfoToClient(userInfo);
@@ -27,7 +24,7 @@
 				});
 
 				socket.on("buzzInfoToClient", (buzzInfo) => {
-					buzzInfoToClient(buzzInfo, buzzerSound);
+					buzzInfoToClient(buzzInfo);
 				});
 
 				$("#plus0").click(function() {
@@ -42,10 +39,6 @@
 
 				$("#unregisterUsers").click(function() {
 					socket.emit("unregisterUsers", 2);
-				});
-
-				$("#buzzerOptions").contents().mousedown(function() {
-					buzzerSound = selectBuzzer($(this).attr("id"));
 				});
 			});
 		</script>
@@ -76,8 +69,6 @@
 				Chasers:
 				<ul></ul>
 			</div>
-		</div>
-		<div id="buzzerOptions">
 		</div>
 	</body>
 </html>

@@ -38,7 +38,7 @@ a, a:visited {
     left: 60px;
     border: dashed;
     width: 400px;
-    min-height: 130px;
+    min-height: 170px;
     padding-left: 5px;
 }
 
@@ -47,17 +47,18 @@ a, a:visited {
     left: 724px;
     border: dashed;
     width: 400px;
-    min-height: 130px;
+    min-height: 170px;
     padding-left: 5px;
 }
 
 ul {
-    list-style-type: square;
+    list-style-type: none;
     margin: 0px;
-    padding-left: 30px;
+    padding-left: 0px;
 }
 
 #buzzer {
+    width: 200px;
     position: relative;
     z-index: 1000;
 }
@@ -84,6 +85,13 @@ ul {
     top: 20px;
     right: 20px;
     width: 14px;
+}
+
+.userListBuzzerSelections {
+    width: 30px;
+    position: relative;
+    top: 5px;
+    padding-right: 10px;
 }
 
 @media (max-width: 600px) {

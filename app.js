@@ -1,14 +1,11 @@
 
 const http = require('http');
-// const https = require('https');
 const express = require('express');
 const app = express();
 const fs = require('fs')
 const { Server } = require("socket.io");
 
 var options = {
-  // key: fs.readFileSync('key.pem'),
-  // cert: fs.readFileSync('cert.pem')
 };
 
 const server = http.createServer(options, app);
@@ -77,9 +74,10 @@ io.on("connection", (socket) => {
 
 
 
-  socket.on("registerUser", (newUserName, newTeamName) => {
-    userInfo[newUserName] = {
-      teamName: newTeamName
+  socket.on("updateUserInfo", (userName, teamName, buzzerId) => {
+    userInfo[userName] = {
+      teamName: teamName,
+      buzzerId: buzzerId
     }
     io.emit("userInfoToClient", userInfo);
   });
@@ -112,7 +110,7 @@ app.get("/browserFunctions.js", (request, response) => {
 });
 
 //all files in these folders can be accessed with a GET request of the filename
-let assetFolders = ["styles","pages","images","audio","fonts"];
+let assetFolders = ["styles","pages","images","images/buzzers","audio","fonts"];
 assetFolders.forEach((folderName) => {
   let folderContents = fs.readdirSync(folderName);
   folderContents.forEach((fileName) => {
