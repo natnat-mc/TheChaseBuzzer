@@ -47,7 +47,8 @@ io.on("connection", (socket) => {
     buzzInfo.push({ 
       userName: newUserName,
       timeStamp: newTimeStamp,
-      lateTime: newTimeStamp-firstBuzzTimeStamp
+      lateTime: newTimeStamp-firstBuzzTimeStamp,
+      buzzOrder: buzzInfo.length+1
     });
     io.emit("buzzInfoToClient", buzzInfo);
     // function buzzInfoToclient() {

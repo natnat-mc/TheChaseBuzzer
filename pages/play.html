@@ -21,7 +21,6 @@
 				buzzerOptions.forEach((buzzerId) => {
 					$("#buzzerOptions").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
 				});
-				// let buzzerSound = new Audio(buzzerOptions[0]+".wav");
 				$("#buzzer").attr("src", buzzerOptions[0]+".png" );
 				$("#buzzer").css("opacity", "0.2");
 				let buzzable = false;
@@ -83,7 +82,7 @@
 						buzzerId = buzzerOptions[Math.floor(Math.random()*(buzzerOptions.length-1))];
 					}
 					socket.emit("updateUserInfo", userName, teamName, buzzerId);
-					buzzerSound = new Audio(buzzerId+".wav");
+					let buzzerSound = new Audio(buzzerId+".wav");
 					$("#buzzer").attr("src", buzzerId+".png" );
 					buzzerSound.play();
 				});

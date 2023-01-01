@@ -1,12 +1,3 @@
-
-// function setupBuzzerOptions() {
-    
-//     buzzerOptions.forEach((buzzerName) => {
-//         $("#buzzerOptions").append("<img id='"+buzzerName+"' src='"+buzzerName+".png'>");
-//     });
-//     return buzzerOptions;
-// }
-
 function userInfoToClient(userInfo) {
     $("#PlayersList").find("ul").html("");
     $("#ChasersList").find("ul").html("");
@@ -31,15 +22,16 @@ function buzzInfoToClient(buzzInfo) {
         $("#firstBuzz").html(buzzInfo[0].userName);
         const userId = buzzInfo[0].userName.replaceAll(" ","_");
         // $("#userListPanel").find("#"+userId).css("font-weight", 900);
-        $("#userListPanel").find("#"+userId).find("var").html(" (BUZZ)");
+        // $("#userListPanel").find("#"+userId).find("var").html(" (BUZZ)");
         let buzzerId = $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId")
         let buzzerSound = new Audio(buzzerId+".wav");
         buzzerSound.play();
     }
 
-    for (let i=1; i < buzzInfo.length; i++) {
+    for (let i=0; i < buzzInfo.length; i++) {
         const userId = buzzInfo[i].userName.replaceAll(" ","_");
-        $("#userListPanel").find("#"+userId).find("var").html(" ("+buzzInfo[i].lateTime/1000+")");
+        // $("#userListPanel").find("#"+userId).find("var").html(" ("+buzzInfo[i].lateTime/1000+")");
+        $("#userListPanel").find("#"+userId).find("var").html(" ["+buzzInfo[i].buzzOrder+"]");
     }    
 }
 
