@@ -38,7 +38,19 @@
 				});
 
 				$("#unregisterUsers").click(function() {
-					socket.emit("unregisterUsers", 2);
+					socket.emit("unregisterUsers");
+				});
+
+				socket.on("objectionToClient", (userName) => {
+					objectionToClient(userName);
+					$("#objection").append("<button id='clearObjection' type='button' style='height: 30px;'>Clear Objections</button>");
+					$("#clearObjection").click(function() {
+						socket.emit("clearObjectionToServer");
+					});
+				});
+
+				socket.on("clearObjectionToClient", () => {
+					clearObjectionToClient();
 				});
 			});
 		</script>
@@ -56,9 +68,15 @@
 			<p style="font-size: 11px; margin: 5px;">(all points buttons clear buzzers)</p>
 			<!-- <br> -->
 			<p id="firstBuzz"></p>
-			<br><br><br>
+			<p id="objection">
+			</p>
+			<br>
+			<br>
+			<br>
+			<br>
 			<button id="unregisterUsers" type="button" style="height: 30px;">Remove all players</button>
 			<!-- <input type="text" id="bufferInput" placeholder="Buffer"> -->
+
 		</div>
 		<div id="userListPanel">
 			<div id="PlayersList">

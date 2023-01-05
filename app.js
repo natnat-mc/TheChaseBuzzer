@@ -16,10 +16,10 @@ const io = new Server(server, {
 const userMap = new Map();
 let buzzInfo = [];
 let userInfo = new Object();//Each user has properties, and is stored as a property of userInfo
-
+let anyObjections = false;
 const teamsList = ["Players","Chasers"]
 
-const teamsScore = [0,0]
+const teamsScore = [0,0];
 let currentTeamNumber = 0;
 io.on("connection", (socket) => {
   console.log("a user connected");
@@ -31,6 +31,10 @@ io.on("connection", (socket) => {
   //initial info on connection
   socket.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
   
+  if (anyObjections == true) {
+    socket.emit("objectionToClient", "????");
+  }
+
   socket.on("pingServer", (timeStamp) => {
     socket.emit("pingClient", timeStamp);
   });
@@ -84,10 +88,22 @@ io.on("connection", (socket) => {
   });
 
   socket.on("unregisterUsers", () => {
+    // console.log("whaat?");
     userInfo = new Object();
     io.emit("userInfoToClient", userInfo);
   });
 
+  socket.on("objectionToServer", (userName) => {
+    if (anyObjections == false) {
+      io.emit("objectionToClient", userName);
+      anyObjections = true;
+    }
+  });
+
+  socket.on("clearObjectionToServer", () => {
+    anyObjections = false;
+    io.emit("clearObjectionToClient");
+  });
 });
 
 // const io = new Server(server);

@@ -17,7 +17,7 @@
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
 
-				let buzzerOptions = ["Kirbeep","MPYosh","MPDog","MPCat","EBWow","Ooh","MarioBoing","TheNumberEight","EBAttack1","SaturnHonk","PuffRest","AAHoldIt","EmergencyMeeting","Mystery"];
+				let buzzerOptions = ["Kirbeep","MPYosh","MPDog","MPCat","EBWow","EBAttack1","Ooh","TheNumberEight","MarioBoing","MarioCoin","SaturnHonk","PuffRest","AAHoldIt","EmergencyMeeting","PikminThrow","MGSAlert","FF9Moogle","Mystery"];
 				buzzerOptions.forEach((buzzerId) => {
 					$("#buzzerOptions").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
 				});
@@ -86,6 +86,26 @@
 					$("#buzzer").attr("src", buzzerId+".png" );
 					buzzerSound.play();
 				});
+
+				$("#contestAnswer").find("img").mousedown(function() {
+					socket.emit("objectionToServer", userName);
+				});
+
+				$("#contestAnswer").find("img").hover(
+					function() {
+						$(this).attr("src", "AAEvidence.gif");
+					}, function() {
+						$(this).attr("src", "AAEvidence.png");
+					}
+				);
+
+				socket.on("objectionToClient", (userName) => {
+					objectionToClient(userName);
+				});
+				
+				socket.on("clearObjectionToClient", () => {
+					clearObjectionToClient();
+				});
 			});
 		</script>
 	</head>
@@ -99,6 +119,8 @@
 			<img id="buzzer" alt="The buzzer">
 			<br>
 			<p id="firstBuzz"></p>
+			<div id="objection">
+			</div>
 		</div>
 		<div id="userListPanel">
 			<div id="PlayersList">
@@ -112,5 +134,14 @@
 		</div>
 		<div id="buzzerOptions">
 		</div>
+		<div id="contestAnswer">
+			<img src="AAEvidence.png" >
+			<p>
+				Click to contest an answer marked incorrectly.
+				<br>
+				(please use sparingly)
+			</p>
+		<div>
+
 	</body>
 </html>

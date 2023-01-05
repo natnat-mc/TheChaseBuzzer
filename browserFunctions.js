@@ -44,3 +44,13 @@ function selectBuzzer(buzzerId) {
     buzzerSound.play();
     return buzzerSound;
 }
+
+let objectionSound = new Audio("AAObjection.wav");
+function objectionToClient(userName) {
+    objectionSound.play();
+    $("#objection").html("<img src='AAObjection.gif?"+Math.random()+"'><br>"+userName+" is objecting!<br>");
+}
+
+function clearObjectionToClient() {
+    $("#objection").html("");
+}
