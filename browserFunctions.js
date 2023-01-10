@@ -21,8 +21,6 @@ function buzzInfoToClient(buzzInfo) {
     if ($("#firstBuzz").html() == "") {
         $("#firstBuzz").html(buzzInfo[0].userName);
         const userId = buzzInfo[0].userName.replaceAll(" ","_");
-        // $("#userListPanel").find("#"+userId).css("font-weight", 900);
-        // $("#userListPanel").find("#"+userId).find("var").html(" (BUZZ)");
         let buzzerId = $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId")
         let buzzerSound = new Audio(buzzerId+".wav");
         buzzerSound.play();

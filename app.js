@@ -1,4 +1,3 @@
-
 const http = require('http');
 const express = require('express');
 const app = express();
@@ -55,12 +54,6 @@ io.on("connection", (socket) => {
       buzzOrder: buzzInfo.length+1
     });
     io.emit("buzzInfoToClient", buzzInfo);
-    // function buzzInfoToclient() {
-    //   io.emit("buzzInfoToClient", buzzInfo);
-    //   console.log(buzzInfo);
-    // }
-    // setTimeout(buzzInfoToclient, 1000);
-    // console.log(buzzInfo);
   });
  
   socket.on("scoresToServer", score => {
@@ -68,16 +61,12 @@ io.on("connection", (socket) => {
     if (teamsScore[currentTeamNumber] >= 2) {
       teamsScore[currentTeamNumber] = 0;
       currentTeamNumber = (currentTeamNumber+1)%2;
-      // io.emit("switchCurrentteam");
-      // io.emit("dataToClient", buzzList, teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
     }
     buzzInfo = [];
     io.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
     io.emit("clearBuzzers", teamsList[currentTeamNumber]);
     io.emit("userInfoToClient", userInfo);//resets the buzzer info 
   });
-
-
 
   socket.on("updateUserInfo", (userName, teamName, buzzerId) => {
     userInfo[userName] = {
@@ -88,7 +77,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("unregisterUsers", () => {
-    // console.log("whaat?");
     userInfo = new Object();
     io.emit("userInfoToClient", userInfo);
   });

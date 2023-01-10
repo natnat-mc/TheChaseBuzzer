@@ -1,5 +1,3 @@
-
-
 body {
     font-family: 'Twoson';
     color: rgb(255, 255, 255);
@@ -32,7 +30,6 @@ a, a:visited {
     min-height: 310px;
     width: 500px;
     position: relative;
-    /* bottom: 150px; */
 }
 
 #objection img{
@@ -47,6 +44,7 @@ a, a:visited {
     text-align: center;
     width: 200px;
 }
+
 #contestAnswer img {
     width: 100px;
 }
@@ -71,7 +69,6 @@ a, a:visited {
 }
 
 #PlayersList {
-    /* font-family: "Lucida Console"; */
     position: absolute;
     left: 60px;
     border: dashed;
@@ -145,7 +142,6 @@ ul {
 
     #objection img{
         width: 150px;
-        /* text-align: left; */
     }
     #userListPanel {
         top: 80px;
