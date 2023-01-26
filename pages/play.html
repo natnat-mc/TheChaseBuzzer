@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>The cooler buzzer website</title>
+		<title>Now with more buzzers per buzzer!</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -15,10 +15,14 @@
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
-
-				let buzzerOptions = ["Kirbeep","MPYosh","MPDog","MPCat","EBWow","EBAttack1","Ooh","TheNumberEight","MarioBoing","MarioCoin","SaturnHonk","PuffRest","AAHoldIt","EmergencyMeeting","PikminThrow","MGSAlert","FF9Moogle","Mystery"];
-				buzzerOptions.forEach((buzzerId) => {
-					$("#buzzerOptions").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
+				let buzzerOptions = [["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat"],["EBWow","EBAttack1","SaturnHonk"],["Ooh"],["Jiggluigibat"],["AAHoldIt","AATakeThat"],["EmergencyMeeting"],["TheNumberEight"],["PikminThrow","PikminDeath"],["MGSAlert"],["FF9Moogle"],["P3Summon"],["HKAdido","HKShaw","HKGrub"],["DKOK"],["SonicOhNo"],["PdPSeren","TAFroggy"],["PKMNLvlUp"],["Mystery"]];
+				buzzerOptions.forEach((buzzerGroup) => {
+					const groupFaceId = buzzerGroup[0];
+					const buzzerGroupHTML = $("<div class=buzzerGroup><small>"+buzzerGroup.length+"</small><img id='"+groupFaceId+"' src='"+groupFaceId+".png'> <div class=buzzerGroupItems hidden> </div>");
+					buzzerGroup.forEach((buzzerId) => {
+						buzzerGroupHTML.find(".buzzerGroupItems").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
+					});
+					$("#buzzerOptions").append(buzzerGroupHTML);
 				});
 				$("#buzzer").attr("src", buzzerOptions[0]+".png" );
 				$("#buzzer").css("opacity", "0.2");
@@ -75,10 +79,16 @@
 					}
 				}
 
-				$("#buzzerOptions").contents().mousedown(function() {
-					buzzerId = $(this).attr("id")
+				$(".buzzerGroup").mousedown(function() {
+					$(".buzzerGroupItems").hide();
+					$(this).find(".buzzerGroupItems").show();
+				});
+
+				$("#buzzerOptions img").mousedown(function() {
+					buzzerId = $(this).attr("id");
 					if (buzzerId == "Mystery") {
-						buzzerId = buzzerOptions[Math.floor(Math.random()*(buzzerOptions.length-1))];
+						buzzerOptionsFlat = buzzerOptions.flat();
+						buzzerId = buzzerOptionsFlat[Math.floor(Math.random()*(buzzerOptionsFlat.length-1))];
 					}
 					socket.emit("updateUserInfo", userName, teamName, buzzerId);
 					let buzzerSound = new Audio(buzzerId+".wav");
