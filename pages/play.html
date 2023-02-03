@@ -29,6 +29,7 @@
 				let buzzable = false;
 
 				socket.emit("updateUserInfo", userName, teamName, "Kirbeep");//initial user registration
+				$("#buzzer").attr("src", "Kirbeep.png" );
 
 				socket.on("userInfoToClient", (userInfo) => {
 					userInfoToClient(userInfo);
@@ -128,6 +129,11 @@
 			<img id="buzzer" alt="The buzzer">
 			<br>
 			<p id="firstBuzz"></p>
+			<p id="instructions">
+				Click the buzzer above or press spacebar to buzz in.
+				<br>
+				You can only buzz in on your team's turn.
+			</p>
 			<div id="objection">
 			</div>
 		</div>

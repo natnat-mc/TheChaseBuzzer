@@ -98,6 +98,10 @@ ul {
     z-index: 1000;
 }
 
+#instructions {
+    font-size: 14px;
+}
+
 #buzzerOptions img {
     width: 50px;
 }
