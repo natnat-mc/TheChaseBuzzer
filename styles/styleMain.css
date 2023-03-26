@@ -27,14 +27,14 @@ a, a:visited {
 #objection {
     left: 50%;
     margin-left: -250px;
-    min-height: 310px;
+    min-height: 100px;
     width: 500px;
     position: relative;
 }
 
 #objection img{
     text-align: center;
-    width: 300px;
+    width: 200px;
 }
 
 #contestAnswer {
@@ -75,6 +75,7 @@ a, a:visited {
     width: 400px;
     min-height: 170px;
     padding-left: 5px;
+    padding-bottom: 5px;
 }
 
 #ChasersList {
@@ -84,6 +85,7 @@ a, a:visited {
     width: 400px;
     min-height: 170px;
     padding-left: 5px;
+    padding-bottom: 5px;
 }
 
 ul {
@@ -190,6 +192,6 @@ ul {
         url('Twoson.woff') format('woff'),
         url('Twoson.ttf') format('truetype');
     font-weight: normal;
-    font-style: italic;
+    /* font-style: italic; */
     font-display: swap;
 }

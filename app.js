@@ -14,10 +14,10 @@ const io = new Server(server, {
 
 const userMap = new Map();
 let buzzInfo = [];
+let idkList = [];
 let userInfo = new Object();//Each user has properties, and is stored as a property of userInfo
 let anyObjections = false;
 const teamsList = ["Players","Chasers"]
-
 const teamsScore = [0,0];
 let currentTeamNumber = 0;
 io.on("connection", (socket) => {
@@ -55,6 +55,22 @@ io.on("connection", (socket) => {
     });
     io.emit("buzzInfoToClient", buzzInfo);
   });
+
+  socket.on("idkButtonPressed", (newUserName) => {
+    if (!idkList.includes(newUserName) && userInfo[newUserName] != null && userInfo[newUserName].teamName == teamsList[currentTeamNumber]) {
+      idkList.push(newUserName);
+      let teamSize = 0;
+      for (const user in userInfo) {
+        if (userInfo[user].teamName == userInfo[newUserName].teamName) {
+          teamSize++;
+        }
+      }
+      io.emit("idkListToClient", idkList);
+      if (idkList.length >= teamSize) {
+        io.emit("passToClient", teamsList[currentTeamNumber]);
+      }
+    }
+  });
  
   socket.on("scoresToServer", score => {
     teamsScore[currentTeamNumber] += score;
@@ -63,9 +79,9 @@ io.on("connection", (socket) => {
       currentTeamNumber = (currentTeamNumber+1)%2;
     }
     buzzInfo = [];
+    idkList = [];
     io.emit("gameStateToClient", teamsList[currentTeamNumber], teamsScore[currentTeamNumber]);
     io.emit("clearBuzzers", teamsList[currentTeamNumber]);
-    io.emit("userInfoToClient", userInfo);//resets the buzzer info 
   });
 
   socket.on("updateUserInfo", (userName, teamName, buzzerId) => {

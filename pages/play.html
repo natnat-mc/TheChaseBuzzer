@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Now with more buzzers per buzzer!</title>
+		<title>Pledge Monolith!</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
-				let buzzerOptions = [["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat"],["EBWow","EBAttack1","SaturnHonk"],["Ooh"],["Jiggluigibat"],["AAHoldIt","AATakeThat"],["EmergencyMeeting"],["TheNumberEight"],["PikminThrow","PikminDeath"],["MGSAlert"],["FF9Moogle"],["P3Summon"],["HKAdido","HKShaw","HKGrub"],["DKOK"],["SonicOhNo"],["PdPSeren","TAFroggy"],["PKMNLvlUp"],["Mystery"]];
+				let buzzerOptions = [["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat"],["P3Summon"],["EBWow","EBAttack1","SaturnHonk"],["Ooh"],["AAHoldIt","AATakeThat"],["Killer7Laugh"],["TheNumberEight"],["Jiggluigibat"],["FF9Moogle"],["EmergencyMeeting"],["PikminThrow"],["MGSAlert"],["HKAdido","HKShaw","HKGrub"],["DKOK"],["SonicCheckpoint","SonicOhNo","SonicSusic"],["PdPSeren","TAFroggy","TAKamek"],["PKMNLvlUp"],["MMShakeShake"],["AoEWololo"],["Mystery"]];
 				buzzerOptions.forEach((buzzerGroup) => {
 					const groupFaceId = buzzerGroup[0];
 					const buzzerGroupHTML = $("<div class=buzzerGroup><small>"+buzzerGroup.length+"</small><img id='"+groupFaceId+"' src='"+groupFaceId+".png'> <div class=buzzerGroupItems hidden> </div>");
@@ -48,7 +48,7 @@
 						buzzable = false;
 						$("#buzzer").css("opacity", "0.2");
 					}
-					$("#firstBuzz").html("");
+					clearBuzzers();
 				});
 
 				socket.on("buzzInfoToClient", (buzzInfo) => {
@@ -60,6 +60,14 @@
 					console.log("ping: "+ping);
 				});
 				
+				socket.on("idkListToClient", (idkList) => {
+					idkListToClient(idkList);
+				});
+
+				socket.on("passToClient", (teamName) => {
+					passToClient(teamName);
+				});
+
 				$(document).keydown(function(e) {
 					if(e.which == 32) {
 						buzzIn();
@@ -79,6 +87,16 @@
 						socket.emit("pingServer", new Date().getTime());
 					}
 				}
+
+				$("#idkButton").mousedown(function() {
+					socket.emit("idkButtonPressed", userName);
+				});
+
+				$(document).keydown(function(e) {
+					if(e.which == 73 || e.which == 68 || e.which == 75) {
+						socket.emit("idkButtonPressed", userName);
+					}
+				});
 
 				$(".buzzerGroup").mousedown(function() {
 					$(".buzzerGroupItems").hide();
@@ -133,7 +151,13 @@
 				Click the buzzer above or press spacebar to buzz in.
 				<br>
 				You can only buzz in on your team's turn.
+				<br>
+				<br>
+				Click the button below to let your team know you are willing to pass.
+				<br>
+				You can also do this by pressing the I, D or K key.
 			</p>
+			<img id="idkButton" src="idkButton.png" width="125px">
 			<div id="objection">
 			</div>
 		</div>
