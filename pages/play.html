@@ -15,7 +15,33 @@
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
-				let buzzerOptions = [["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat"],["P3Summon"],["EBWow","EBAttack1","SaturnHonk"],["Ooh"],["AAHoldIt","AATakeThat"],["Killer7Laugh"],["TheNumberEight"],["Jiggluigibat"],["FF9Moogle"],["EmergencyMeeting"],["PikminThrow"],["MGSAlert"],["HKAdido","HKShaw","HKGrub"],["DKOK"],["SonicCheckpoint","SonicOhNo","SonicSusic"],["PdPSeren","TAFroggy","TAKamek"],["PKMNLvlUp"],["MMShakeShake"],["AoEWololo"],["Mystery"]];
+				let buzzerOptions = [
+					["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],
+					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat","MarioPlum","WLHelloThere"],
+					["P3Summon"],
+					["EBWow","EBAttack1","SaturnHonk"],
+					["Ooh"],
+					["AAHoldIt","AATakeThat"],
+					["Killer7Laugh"],
+					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
+					["Jiggluigibat"],
+					["FF9Moogle"],
+					["EmergencyMeeting"],
+					["PikminThrow"],
+					["MGSAlert"],
+					["HKAdido","HKShaw","HKGrub"],
+					["DKOK"],
+					["SonicCheckpoint","SonicOhNo","SonicSusic"],
+					["PdPSeren","TAFroggy","TAKamek"],
+					["PKMNLvlUp"],
+					["MMShakeShake"],
+					["AoEWololo"],
+					["SplatWoomy","SplatPing"],
+					["OneShotSun","OneShotRam","OneShotRamDemon"],
+					["TWEWYCrunch","TWEWYNoLimits","TWEWYSummon","TWEWYTime","TWEWYVerywell","TWEWYZettaslow"],
+					["BuzzinLiveBuzzer"],
+					["Mystery"]
+				];
 				buzzerOptions.forEach((buzzerGroup) => {
 					const groupFaceId = buzzerGroup[0];
 					const buzzerGroupHTML = $("<div class=buzzerGroup><small>"+buzzerGroup.length+"</small><img id='"+groupFaceId+"' src='"+groupFaceId+".png'> <div class=buzzerGroupItems hidden> </div>");
