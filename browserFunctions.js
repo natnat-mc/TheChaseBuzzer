@@ -58,15 +58,15 @@ function passToClient(teamName) {
     $("#firstBuzz").html(teamName+" have Passed!");
 }
 
-function selectBuzzer(buzzerId) {
-    if (buzzerId == "Mystery") {
-        buzzerId = buzzerOptions[Math.floor(Math.random()*(buzzerOptions.length-1))];
-    }
-    let buzzerSound = new Audio(buzzerId+".wav");
-    $("#buzzer").attr("src", buzzerId+".png" );
-    buzzerSound.play();
-    return buzzerSound;
-}
+// function selectBuzzer(buzzerId) {
+//     if (buzzerId == "Mystery") {
+//         buzzerId = buzzerOptions[Math.floor(Math.random()*(buzzerOptions.length-1))];
+//     }
+//     let buzzerSound = new Audio(buzzerId+".wav");
+//     $("#buzzer").attr("src", buzzerId+".png" );
+//     buzzerSound.play();
+//     return buzzerSound;
+// }
 
 let objectionSound = new Audio("AAObjection.wav");
 function objectionToClient(userName) {

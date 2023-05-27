@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Pledge Monolith!</title>
+		<title>Pledge Monolith! (please)</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -15,46 +15,104 @@
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
+				let clientBuzzer = "Kirbeep";//this is mostly just used as a reference for if they have a special buzzer
 				let buzzerOptions = [
-					["Kirbeep","KirbyMic2","KirbyMic3","KirbySquishy","KirbyBugzzy","KirbyKracko"],
-					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDog","MPCat","MarioPlum","WLHelloThere"],
-					["P3Summon"],
+					["Kirbeep","KirbyMic2","KirbySquishy","KirbyBugzzy","KirbyKracko"],
+					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere"],
+					["PizzaTowerTaunt1"],
 					["EBWow","EBAttack1","SaturnHonk"],
 					["Ooh"],
 					["AAHoldIt","AATakeThat"],
 					["Killer7Laugh"],
 					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
-					["Jiggluigibat"],
+					["Jiggluigibat","SaturnHonk","Kirbeep"],
+					["PikminThrow","Pikmin2LouieAMV"],
 					["FF9Moogle"],
-					["EmergencyMeeting"],
-					["PikminThrow"],
 					["MGSAlert"],
-					["HKAdido","HKShaw","HKGrub"],
+					["HKAdido","HKGrub"],
 					["DKOK"],
 					["SonicCheckpoint","SonicOhNo","SonicSusic"],
+					["EmergencyMeeting"],
 					["PdPSeren","TAFroggy","TAKamek"],
 					["PKMNLvlUp"],
 					["MMShakeShake"],
 					["AoEWololo"],
+					["P3Summon"],
 					["SplatWoomy","SplatPing"],
-					["OneShotSun","OneShotRam","OneShotRamDemon"],
+					["OneShotSun","OneShotRam"],
 					["TWEWYCrunch","TWEWYNoLimits","TWEWYSummon","TWEWYTime","TWEWYVerywell","TWEWYZettaslow"],
+					["BMYoSun","BMOuch","BMBoing"],
+					["EWJPain"],
 					["BuzzinLiveBuzzer"],
 					["Mystery"]
 				];
-				buzzerOptions.forEach((buzzerGroup) => {
-					const groupFaceId = buzzerGroup[0];
-					const buzzerGroupHTML = $("<div class=buzzerGroup><small>"+buzzerGroup.length+"</small><img id='"+groupFaceId+"' src='"+groupFaceId+".png'> <div class=buzzerGroupItems hidden> </div>");
-					buzzerGroup.forEach((buzzerId) => {
-						buzzerGroupHTML.find(".buzzerGroupItems").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
+				let specialBuzzers = { 
+					PizzaTowerTaunt1: ["PizzaTowerTaunt-1","PizzaTowerTaunt0","PizzaTowerTaunt1","PizzaTowerTaunt2","PizzaTowerTaunt3","PizzaTowerTaunt4","PizzaTowerTaunt5","PizzaTowerTaunt6","PizzaTowerTaunt7","PizzaTowerTaunt8"],
+					OneShotRam: ["OneShotRam","OneShotRam","OneShotRam","OneShotRamDemon"],
+					MarioPenguin: ["MarioPenguin","MarioPenguin","MarioPenguin","MarioPenguin","MarioPenguin","MarioMegPenguin"],
+					KirbyMic2: ["KirbyMic1","KirbyMic2","KirbyMic3"],
+					HKAdido: ["HKAdido","HKShaw"],
+					MPDogF: ["MPDogA","MPDogB","MPDogC","MPDogD","MPDogE","MPDogF","MPDogG"],
+					MPCatF: ["MPCatA","MPCatB","MPCatC","MPCatD","MPCatE","MPCatF","MPCatG"]
+				}
+				let buzzerOptionsCurrentRow = 0;
+				let buzzerOptionsTotalRows = 3;
+				function displayBuzzerOptions() {
+					$("#buzzerOptions").html("");
+					$("#buzzerOptions").append("<div class=buzzerGroup id='buzzerOptionsPrev'>\<</div>");
+					for (let i= 0; i<10; i++){
+						let buzzerGroup = buzzerOptions[buzzerOptionsCurrentRow*10+i];
+						if (buzzerGroup != null) {
+							const groupFaceId = buzzerGroup[0];
+							const buzzerGroupHTML = $("<div class=buzzerGroup><small>"+buzzerGroup.length+"</small><img id='"+groupFaceId+"' src='"+groupFaceId+".png'> <div class=buzzerGroupItems hidden> </div>");
+							buzzerGroup.forEach((buzzerId) => {						
+								buzzerGroupHTML.find(".buzzerGroupItems").append("<img id='"+buzzerId+"' src='"+buzzerId+".png'>");
+							});
+							$("#buzzerOptions").append(buzzerGroupHTML);
+						}
+					}
+					$("#buzzerOptions").append("<div class=buzzerGroup id='buzzerOptionsNext'>\></div>");
+
+					$(".buzzerGroup").mousedown(function() {
+						$(".buzzerGroupItems").hide();
+						$(this).find(".buzzerGroupItems").show();
 					});
-					$("#buzzerOptions").append(buzzerGroupHTML);
-				});
+
+					$("#buzzerOptions img").mousedown(function() {
+						buzzerId = $(this).attr("id");
+						clientBuzzer = buzzerId;
+						if (specialBuzzers[buzzerId] != null) {
+							buzzerId = specialBuzzers[buzzerId][Math.floor(Math.random()*(specialBuzzers[buzzerId].length))];
+						}
+						if (buzzerId == "Mystery") {
+							buzzerOptionsFlat = buzzerOptions.flat();
+							buzzerId = buzzerOptionsFlat[Math.floor(Math.random()*(buzzerOptionsFlat.length-1))];
+						}
+						socket.emit("updateUserInfo", userName, teamName, buzzerId);
+						let buzzerSound = new Audio(buzzerId+".wav");
+						$("#buzzer").attr("src", buzzerId+".png" );
+						buzzerSound.play();
+					});
+
+					$("#buzzerOptionsNext").mousedown(function() {
+						buzzerOptionsCurrentRow += 1;
+						buzzerOptionsCurrentRow = ((buzzerOptionsCurrentRow % buzzerOptionsTotalRows) + buzzerOptionsTotalRows) % buzzerOptionsTotalRows //true modulo
+						displayBuzzerOptions();
+					});
+					$("#buzzerOptionsPrev").mousedown(function() {
+						buzzerOptionsCurrentRow = buzzerOptionsCurrentRow-1;
+						buzzerOptionsCurrentRow = ((buzzerOptionsCurrentRow % buzzerOptionsTotalRows) + buzzerOptionsTotalRows) % buzzerOptionsTotalRows	//true modulo
+						displayBuzzerOptions();
+					});
+				}
+				displayBuzzerOptions();
+
 				$("#buzzer").attr("src", buzzerOptions[0]+".png" );
 				$("#buzzer").css("opacity", "0.2");
+				$("#buzzer").css("cursor", "not-allowed");
 				let buzzable = false;
 
-				socket.emit("updateUserInfo", userName, teamName, "Kirbeep");//initial user registration
+				socket.emit("updateUserInfo", userName, teamName, clientBuzzer);//initial user registration
 				$("#buzzer").attr("src", "Kirbeep.png" );
 
 				socket.on("userInfoToClient", (userInfo) => {
@@ -68,10 +126,11 @@
 				socket.on("clearBuzzers", (currentTeam) => {
 					if (currentTeam == teamName) {
 						buzzable = true;
+						$("#buzzer").css("cursor", "pointer");
 						$("#buzzer").css("opacity", "1");
-			
 					} else {
 						buzzable = false;
+						$("#buzzer").css("cursor", "not-allowed");
 						$("#buzzer").css("opacity", "0.2");
 					}
 					clearBuzzers();
@@ -106,9 +165,19 @@
 				
 				function buzzIn() {
 					if (buzzable) {
+
 						buzzable = false;
 						$("#buzzer").css("opacity", "0.2");
+						$("#buzzer").css("cursor", "not-allowed");
 						buzzInTime = new Date().getTime();
+						
+						
+						if (specialBuzzers[clientBuzzer] != null) {
+							let buzzerId = specialBuzzers[clientBuzzer][Math.floor(Math.random()*(specialBuzzers[clientBuzzer].length))];
+							$("#buzzer").attr("src", buzzerId+".png" );
+							socket.emit("updateUserInfo", userName, teamName, buzzerId);
+						}
+
 						socket.emit("buzzerPressed", userName, buzzInTime);
 						socket.emit("pingServer", new Date().getTime());
 					}
@@ -122,23 +191,6 @@
 					if(e.which == 73 || e.which == 68 || e.which == 75) {
 						socket.emit("idkButtonPressed", userName);
 					}
-				});
-
-				$(".buzzerGroup").mousedown(function() {
-					$(".buzzerGroupItems").hide();
-					$(this).find(".buzzerGroupItems").show();
-				});
-
-				$("#buzzerOptions img").mousedown(function() {
-					buzzerId = $(this).attr("id");
-					if (buzzerId == "Mystery") {
-						buzzerOptionsFlat = buzzerOptions.flat();
-						buzzerId = buzzerOptionsFlat[Math.floor(Math.random()*(buzzerOptionsFlat.length-1))];
-					}
-					socket.emit("updateUserInfo", userName, teamName, buzzerId);
-					let buzzerSound = new Audio(buzzerId+".wav");
-					$("#buzzer").attr("src", buzzerId+".png" );
-					buzzerSound.play();
 				});
 
 				$("#contestAnswer").find("img").mousedown(function() {

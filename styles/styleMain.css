@@ -10,6 +10,7 @@ button {
     font-family: 'Twoson';
     position: relative;
     z-index: 1;
+    cursor: pointer;
 }
 
 input {
@@ -47,6 +48,7 @@ a, a:visited {
 
 #contestAnswer img {
     width: 100px;
+    cursor: pointer;
 }
 
 #contestAnswer p {
@@ -100,12 +102,27 @@ ul {
     z-index: 1000;
 }
 
+#idkButton {
+    cursor: pointer;
+}
+
 #instructions {
     font-size: 14px;
 }
 
 #buzzerOptions img {
     width: 50px;
+    cursor: pointer;
+}
+
+#buzzerOptionsNext {
+    font-size: 75px;
+    cursor: pointer;
+}
+
+#buzzerOptionsPrev{
+    font-size: 75px;
+    cursor: pointer;
 }
 
 #buzzerOptions small {
@@ -145,6 +162,7 @@ ul {
     top: 20px;
     right: 20px;
     width: 14px;
+    cursor: pointer;
 }
 
 .userListBuzzerSelections {
