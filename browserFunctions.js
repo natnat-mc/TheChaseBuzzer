@@ -1,7 +1,6 @@
 function userInfoToClient(userInfo) {
     for (const user in userInfo) {
         const userId = user.replaceAll(" ","_");
-        console.log($("#userListPanel").find("#"+userId));
         if ($("#userListPanel").find("#"+userId).length >= 1) {
             //update buzzer icon of existing user
             $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId",userInfo[user].buzzerId);

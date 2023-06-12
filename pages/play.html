@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Pledge Monolith! (please)</title>
+		<title>Thanks for pledging monolith! :)</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -21,8 +21,8 @@
 					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere"],
 					["PizzaTowerTaunt1"],
 					["EBWow","EBAttack1","SaturnHonk"],
-					["Ooh"],
 					["AAHoldIt","AATakeThat"],
+					["Ooh"],
 					["Killer7Laugh"],
 					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
 					["Jiggluigibat","SaturnHonk","Kirbeep"],
@@ -43,6 +43,7 @@
 					["TWEWYCrunch","TWEWYNoLimits","TWEWYSummon","TWEWYTime","TWEWYVerywell","TWEWYZettaslow"],
 					["BMYoSun","BMOuch","BMBoing"],
 					["EWJPain"],
+					["SF3KenParry","SFBrazil"],
 					["BuzzinLiveBuzzer"],
 					["Mystery"]
 				];
@@ -53,8 +54,10 @@
 					KirbyMic2: ["KirbyMic1","KirbyMic2","KirbyMic3"],
 					HKAdido: ["HKAdido","HKShaw"],
 					MPDogF: ["MPDogA","MPDogB","MPDogC","MPDogD","MPDogE","MPDogF","MPDogG"],
-					MPCatF: ["MPCatA","MPCatB","MPCatC","MPCatD","MPCatE","MPCatF","MPCatG"]
+					MPCatF: ["MPCatA","MPCatB","MPCatC","MPCatD","MPCatE","MPCatF","MPCatG"],
+					DeltaruneICanDoAnything: ["DeltaruneICanDoAnything","DeltaruneChaosChaos"]
 				}
+				let animatedBuzzers = ["SF3KenParry"];
 				let buzzerOptionsCurrentRow = 0;
 				let buzzerOptionsTotalRows = 3;
 				function displayBuzzerOptions() {
@@ -79,7 +82,7 @@
 					});
 
 					$("#buzzerOptions img").mousedown(function() {
-						buzzerId = $(this).attr("id");
+						let buzzerId = $(this).attr("id");
 						clientBuzzer = buzzerId;
 						if (specialBuzzers[buzzerId] != null) {
 							buzzerId = specialBuzzers[buzzerId][Math.floor(Math.random()*(specialBuzzers[buzzerId].length))];
@@ -90,7 +93,13 @@
 						}
 						socket.emit("updateUserInfo", userName, teamName, buzzerId);
 						let buzzerSound = new Audio(buzzerId+".wav");
-						$("#buzzer").attr("src", buzzerId+".png" );
+						if (animatedBuzzers.includes(buzzerId)) {
+							$("#buzzer").attr("src", buzzerId+".gif" );
+						}
+						else {
+							$("#buzzer").attr("src", buzzerId+".png" );
+						}
+						
 						buzzerSound.play();
 					});
 
@@ -107,13 +116,12 @@
 				}
 				displayBuzzerOptions();
 
-				$("#buzzer").attr("src", buzzerOptions[0]+".png" );
+				$("#buzzer").attr("src", buzzerOptions[0][0]+".png" );
 				$("#buzzer").css("opacity", "0.2");
 				$("#buzzer").css("cursor", "not-allowed");
 				let buzzable = false;
 
 				socket.emit("updateUserInfo", userName, teamName, clientBuzzer);//initial user registration
-				$("#buzzer").attr("src", "Kirbeep.png" );
 
 				socket.on("userInfoToClient", (userInfo) => {
 					userInfoToClient(userInfo);
@@ -177,7 +185,10 @@
 							$("#buzzer").attr("src", buzzerId+".png" );
 							socket.emit("updateUserInfo", userName, teamName, buzzerId);
 						}
-
+						else if (animatedBuzzers.includes(clientBuzzer)) {
+							$("#buzzer").attr("src", clientBuzzer+".gif" );
+							socket.emit("updateUserInfo", userName, teamName, clientBuzzer);
+						}
 						socket.emit("buzzerPressed", userName, buzzInTime);
 						socket.emit("pingServer", new Date().getTime());
 					}
