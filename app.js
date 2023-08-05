@@ -127,7 +127,7 @@ app.get("/play", (request, response) => {
 });
 
 app.get("/browserFunctions.js", (request, response) => {
-  response.sendFile("browserFunctions.js", {root: __dirname });
+  response.sendFile("/browserFunctions.js", {root: __dirname });
 });
 
 //all files in these folders can be accessed with a GET request of the filename

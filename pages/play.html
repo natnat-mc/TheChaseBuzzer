@@ -18,7 +18,7 @@
 				let clientBuzzer = "Kirbeep";//this is mostly just used as a reference for if they have a special buzzer
 				let buzzerOptions = [
 					["Kirbeep","KirbyMic2","KirbySquishy","KirbyBugzzy","KirbyKracko"],
-					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere"],
+					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere","WLAlright","WLHurryUp","WLOhBoy"],
 					["PizzaTowerTaunt1"],
 					["EBWow","EBAttack1","SaturnHonk"],
 					["AAHoldIt","AATakeThat"],
@@ -26,7 +26,7 @@
 					["Killer7Laugh"],
 					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
 					["Jiggluigibat","SaturnHonk","Kirbeep"],
-					["PikminThrow","Pikmin2LouieAMV"],
+					["PikminThrow","Pikmin2LouieAMV","Pikmin2Olimar","Pikmin2President"],
 					["FF9Moogle"],
 					["MGSAlert"],
 					["HKAdido","HKGrub"],
@@ -45,7 +45,12 @@
 					["EWJPain"],
 					["SF3KenParry","SFBrazil"],
 					["BuzzinLiveBuzzer"],
-					["Mystery"]
+					["DESick"],
+					["LoZHello","LoZYahaha"],
+					["BSBunger","BSKweeble"],
+					["SourceNotification","SourceMedkit","SourceMeepMerp"],
+					["xBlade"],
+					["Mystery"],
 				];
 				let specialBuzzers = { 
 					PizzaTowerTaunt1: ["PizzaTowerTaunt-1","PizzaTowerTaunt0","PizzaTowerTaunt1","PizzaTowerTaunt2","PizzaTowerTaunt3","PizzaTowerTaunt4","PizzaTowerTaunt5","PizzaTowerTaunt6","PizzaTowerTaunt7","PizzaTowerTaunt8"],
@@ -55,11 +60,13 @@
 					HKAdido: ["HKAdido","HKShaw"],
 					MPDogF: ["MPDogA","MPDogB","MPDogC","MPDogD","MPDogE","MPDogF","MPDogG"],
 					MPCatF: ["MPCatA","MPCatB","MPCatC","MPCatD","MPCatE","MPCatF","MPCatG"],
-					DeltaruneICanDoAnything: ["DeltaruneICanDoAnything","DeltaruneChaosChaos"]
+					DeltaruneICanDoAnything: ["DeltaruneICanDoAnything","DeltaruneChaosChaos"],
+					LoZHello: ["LoZHello","LoZHey","LoZHey","LoZHey","LoZHey","LoZListen","LoZLook","LoZWatchOut"],
+					DESick: ["DESick","DEABomb","DEYourMother","DEMakeMe"]
 				}
 				let animatedBuzzers = ["SF3KenParry"];
 				let buzzerOptionsCurrentRow = 0;
-				let buzzerOptionsTotalRows = 3;
+				let buzzerOptionsTotalRows = 4;
 				function displayBuzzerOptions() {
 					$("#buzzerOptions").html("");
 					$("#buzzerOptions").append("<div class=buzzerGroup id='buzzerOptionsPrev'>\<</div>");
@@ -192,6 +199,10 @@
 						socket.emit("buzzerPressed", userName, buzzInTime);
 						socket.emit("pingServer", new Date().getTime());
 					}
+					else {
+						let denySelectSound = new Audio("SourceDenySelect.wav");
+						denySelectSound.play();
+					}
 				}
 
 				$("#idkButton").mousedown(function() {
@@ -223,6 +234,15 @@
 				socket.on("clearObjectionToClient", () => {
 					clearObjectionToClient();
 				});
+				window.secret = function() {
+					console.log("Rrree Neurgh!!! :D")
+					let reeeNeurgh = new Audio("LSRrreeNeurgh.wav");
+					reeeNeurgh.play();
+					$("#buzzer").attr("src", "LSRrreeNeurgh.png" );
+					let buzzerId = "LSRrreeNeurgh"
+					clientBuzzer = buzzerId;
+					socket.emit("updateUserInfo", userName, teamName, buzzerId);
+				}
 			});
 		</script>
 	</head>
