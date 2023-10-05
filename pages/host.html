@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Thanks for pledging Star of Providence! :)</title>
+		<title>Submit Kuru Kuru Kururin to the chase ty</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -23,7 +23,7 @@
 				});
 
 				socket.on("buzzInfoToClient", (buzzInfo) => {
-					buzzInfoToClient(buzzInfo);
+					buzzInfoToClient(buzzInfo, true);
 				});
 
 				socket.on("idkListToClient", (idkList) => {
@@ -31,7 +31,7 @@
 				});
 
 				socket.on("passToClient", (teamName) => {
-					passToClient(teamName);
+					passToClient(teamName, true);
 				});
 
 				$("#plus0").click(function() {

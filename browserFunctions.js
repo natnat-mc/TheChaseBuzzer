@@ -27,14 +27,16 @@ function clearBuzzers() {
     $("#userListPanel").find("var").html("");
 }
 
-function buzzInfoToClient(buzzInfo) {
+function buzzInfoToClient(buzzInfo, soundOn) {
     //play sound for first buzz in
     if ($("#firstBuzz").html() == "") {
         $("#firstBuzz").html(buzzInfo[0].userName);
         const userId = buzzInfo[0].userName.replaceAll(" ","_");
         let buzzerId = $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId");
         let buzzerSound = new Audio(buzzerId+".wav");
-        buzzerSound.play();
+        if (soundOn == true) {
+            buzzerSound.play();
+        }
     }
 
     for (let i=0; i < buzzInfo.length; i++) {
@@ -51,9 +53,11 @@ function idkListToClient(idkList) {
     });
 }
 
-function passToClient(teamName) {
+function passToClient(teamName, soundOn) {
     let passSound = new Audio("PikminDeath.wav");
-    passSound.play();
+    if (soundOn == true) {
+        passSound.play();
+    }
     $("#firstBuzz").html(teamName+" have Passed!");
 }
 

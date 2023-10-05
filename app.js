@@ -140,5 +140,3 @@ assetFolders.forEach((folderName) => {
     });
   });
 });
-
-
