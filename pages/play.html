@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Submit Kuru Kuru Kururin to the chase ty</title>
+		<title>No, you do not need to mute this site anymore.</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -15,7 +15,7 @@
 				let userName = queryString.searchParams.get("user");
 				$("#message").html("hi "+userName+" :]")
 				let teamName = queryString.searchParams.get("team");
-				let clientBuzzer = "Kirbeep";//this is mostly just used as a reference for if they have a special buzzer
+				let clientBuzzer = "BuzzinLiveBuzzer";//this is mostly just used as a reference for if they have a special buzzer
 				let buzzerSoundsOn = false;
 				let buzzerOptions = [
 					["BuzzinLiveBuzzer"],
@@ -31,7 +31,7 @@
 					["Ooh"],
 					["Killer7Laugh"],
 					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
-					["Jiggluigibat","SaturnHonk","Kirbeep"],
+					["Jiggluigibat","SaturnHonk","Kirbeep","UltiFinishZoom"],
 					["PikminThrow","Pikmin2LouieAMV","Pikmin2Olimar","Pikmin2President","Pikmin2Breadbug"],
 					["FF9Moogle"],
 					["MGSAlert"],
@@ -40,7 +40,7 @@
 					["SonicCheckpoint","SonicOhNo","SonicSusic"],
 					["EmergencyMeeting"],
 					["PdPSeren","TAFroggy","TAKamek"],
-					["PKMNLvlUp"],
+					["PKMNLvlUp","PKMNCherrim"],
 					["MMShakeShake"],
 					["AoEWololo"],
 					["P3Summon"],
@@ -56,6 +56,8 @@
 					["SourceNotification","SourceMedkit","SourceMeepMerp"],
 					["KHXBlade"],
 					["GTMissileArf","GTGhostMode"],
+					["FECrit"],
+					["RotTHereCatch"],
 					["Mystery"],
 				];
 				let specialBuzzers = { 
@@ -75,9 +77,10 @@
 					BubsyUhOh: ["BubsyUhOh","BubsyAwNuts","BubsyByeBye"],
 					BubsyWhatCouldPawsiblyGoWrong: ["BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyDoYouBelieveInMiracles"],
 					BubsyCheckOutThatTime: ["BubsyCheckOutThatTime","BubsyGreatScore"],
-					BubsyMyContract: ["BubsyMyContract","BubsyIsThereAVeterinarian","BubsyIsTheWritersStrikeOver","BubsyIAmATrainedPurrfessional","BubsyAPyramidScheme","BubsyWhoWroteThisStuff","BubsyAreYouStillPlayin"]
+					BubsyMyContract: ["BubsyMyContract","BubsyIsThereAVeterinarian","BubsyIsTheWritersStrikeOver","BubsyIAmATrainedPurrfessional","BubsyAPyramidScheme","BubsyWhoWroteThisStuff","BubsyAreYouStillPlayin"],
+					RotTHereCatch: ["RotTHereCatch","RotTEatLead"],
 				}
-				let animatedBuzzers = ["SF3KenParry","PlokCLEAR"];
+				let animatedBuzzers = ["SF3KenParry","PlokCLEAR","FECrit"];
 				let buzzerOptionsCurrentRow = 0;
 				let buzzerOptionsTotalRows = 4;
 				function displayBuzzerOptions() {
@@ -230,6 +233,8 @@
 
 				$("#contestAnswer").find("img").mousedown(function() {
 					socket.emit("objectionToServer", userName);
+					let objectionSound = new Audio("AAObjection.wav");
+					objectionSound.play();
 				});
 
 				$("#contestAnswer").find("img").hover(
@@ -240,13 +245,13 @@
 					}
 				);
 
-				socket.on("objectionToClient", (userName) => {
-					objectionToClient(userName);
-				});
+				// socket.on("objectionToClient", (userName) => {
+				// 	objectionToClient(userName);
+				// });
 				
-				socket.on("clearObjectionToClient", () => {
-					clearObjectionToClient();
-				});
+				// socket.on("clearObjectionToClient", () => {
+				// 	clearObjectionToClient();
+				// });
 				window.secret = function() {
 					console.log("Rrree Neurgh!!! :D")
 					let reeeNeurgh = new Audio("LSRrreeNeurgh.wav");
@@ -284,7 +289,7 @@
 				You can also do this by pressing the I, D or K key.
 			</p>
 			<img id="idkButton" src="idkButton.png" width="125px">
-			<div id="objection">
+			<!-- <div id="objection"> -->
 			</div>
 		</div>
 		<div id="userListPanel">

@@ -73,7 +73,7 @@ function passToClient(teamName, soundOn) {
 
 let objectionSound = new Audio("AAObjection.wav");
 function objectionToClient(userName) {
-    objectionSound.play();
+    // objectionSound.play();
     $("#objection").html("<img src='AAObjection.gif?"+Math.random()+"'><br>"+userName+" is objecting!<br>");
 }
 
