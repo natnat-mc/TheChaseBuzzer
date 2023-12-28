@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src="https:/socket.io/socket.io.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			$(document).ready(function() {
 				var socket = io();
@@ -59,6 +59,10 @@
 				socket.on("clearObjectionToClient", () => {
 					clearObjectionToClient();
 				});
+
+				socket.on("resetApp", () => {
+					location.href = "/";
+				});
 			});
 		</script>
 	</head>
@@ -92,5 +96,8 @@
 				<ul></ul>
 			</div>
 		</div>
+		<form action="/reset" method="POST">
+			<button type="submit">Reset the whole app (disconnects everyone)</button>
+		</form>
 	</body>
 </html>

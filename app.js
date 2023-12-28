@@ -20,8 +20,33 @@ let anyObjections = false;
 const teamsList = ["Players","Chasers"]
 const teamsScore = [0,0];
 let currentTeamNumber = 0;
+let sockets = []
+
+async function resetApp() {
+	console.log("resetting app")
+	io.emit("resetApp")
+	Object.keys(options).forEach(x => delete options[x])
+	userMap.clear()
+	buzzInfo.splice(0, buzzInfo.length)
+	idkList.splice(0, buzzInfo.length)
+	Object.keys(userMap).forEach(x => delete userMap[x])
+	Object.keys(userInfo).forEach(x => delete userInfo[x])
+	anyObjections = false
+	teamsList.splice(0, buzzInfo.length, "Players", "Chasers")
+	teamsScore.splice(0, teamsScore.length, 0, 0)
+	currentTeamNumber = 0
+
+	const oldSockets = sockets
+	sockets = []
+
+	await new Promise(ok => setTimeout(ok, 1000))
+	oldSockets.forEach(x => x.disconnect(true))
+	oldSockets.splice(0, oldSockets.length)
+}
+
 io.on("connection", (socket) => {
   console.log("a user connected");
+  sockets.push(socket)
 
   socket.on("disconnect", () => {
       console.log("user disconnected");
@@ -133,6 +158,11 @@ app.get("/play", (request, response) => {
 
 app.get("/browserFunctions.js", (request, response) => {
   response.sendFile("/browserFunctions.js", {root: __dirname });
+});
+
+app.post("/reset", (request, response) => {
+	resetApp()
+	response.redirect("/")
 });
 
 //all files in these folders can be accessed with a GET request of the filename
