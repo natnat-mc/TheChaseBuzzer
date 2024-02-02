@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>No, you do not need to mute this site anymore.</title>
+		<title>You may now put weird characters in your name.</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script>
@@ -10,10 +10,13 @@
 				const egg = new Audio('Egg.wav');
 				$("#userName").change(function() {
 					okSsuka.play();
-					$("#playerLink").attr("href", "/play?user="+this.value+"&team=Players");
+
+					re = new RegExp("\\#|\\&","g");
+       				const userName = this.value.replaceAll(re,">:(");
+					$("#playerLink").attr("href", "/play?user="+userName+"&team=Players");
 					$("#playerLink").html("Players");
 					
-					$("#chaserLink").attr("href", "/play?user="+this.value+"&team=Chasers");
+					$("#chaserLink").attr("href", "/play?user="+userName+"&team=Chasers");
 					$("#chaserLink").html("Chasers");
 				});
 				$("#egg").click(function() {
