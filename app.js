@@ -94,7 +94,6 @@ io.on("connection", (socket) => {
       teamName: teamName,
       buzzerId: buzzerId
     }
-    console.log(userInfo);
     io.emit("userInfoToClient", userInfo);
   });
 
