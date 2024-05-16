@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>No, you do not need to mute this site anymore.</title>
+		<title>No, you do not need to mute this site anymore. (yes, even on firefox)</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -10,6 +10,8 @@
 			$(document).ready(function() {
 				var socket = io();
 				
+				socket.emit("refreshUserInfo");
+
 				socket.on("userInfoToClient", (userInfo) => {
 					userInfoToClient(userInfo);
 				});
@@ -46,6 +48,7 @@
 
 				$("#unregisterUsers").click(function() {
 					socket.emit("unregisterUsers");
+					location.reload();
 				});
 
 				socket.on("objectionToClient", (userName) => {
@@ -84,7 +87,7 @@
 			<br>
 			<br>
 			<br>
-			<button id="unregisterUsers" type="button" style="height: 30px;">Remove all players</button>
+			<button id="unregisterUsers" type="button" style="height: 30px;">Remove/Reconnect all players</button>
 		</div>
 		<div id="userListPanel">
 			<div id="PlayersList">

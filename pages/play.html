@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>No, you do not need to mute this site anymore.</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -21,17 +20,17 @@
 					["BuzzinLiveBuzzer"],
 					["PlokJUMP","PlokWaa","PlokCLEAR","PlokBOSS","PlokGIFT","PlokBONUS"],
 					["BKGuhHuh","BKKazooieJump","BKEekumBokum","BKJinjoGlaceWhistle","BKGrunty1","BKGoldenFeatherGet","BKHoneycombGet","BKEggGet"],
-					["BubsyOhYeah","BubsyUhOh","BubsyLoser","BubsyWhatCouldPawsiblyGoWrong","BubsyImOuttaHere","BubsyCheckOutThatTime","BubsyMyContract"],
+					["BubsyOhYeah","BubsyUhOh","BubsyLoser","BubsyWhatCouldPawsiblyGoWrong","BubsyImOuttaHere","BubsyCheckOutThatTime"],
 					["SkunnyBoioing","SkunnyOw","SkunnyAttention","SkunnyIllBeBack","SkunnyPuddyCat","SkunnyCoocoo","SkunnyAwMan","SkunnyFroggo","SkunnyGhost"],
 					["Kirbeep","KirbyMic2","KirbySquishy","KirbyBugzzy","KirbyKracko"],
+					["Killer7Laugh"],
+					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
+					["Jiggluigibat","SaturnHonk","Kirbeep","UltiFinishZoom","UltiChromSorry"],
 					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere","WLAlright","WLHurryUp","WLOhBoy"],
 					["PizzaTowerTaunt1"],
 					["EBWow","EBAttack1","SaturnHonk"],
 					["AAHoldIt","AATakeThat"],
 					["Ooh"],
-					["Killer7Laugh"],
-					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
-					["Jiggluigibat","SaturnHonk","Kirbeep","UltiFinishZoom"],
 					["PikminThrow","Pikmin2LouieAMV","Pikmin2Olimar","Pikmin2President","Pikmin2Breadbug"],
 					["FF9Moogle"],
 					["MGSAlert"],
@@ -40,10 +39,10 @@
 					["SonicCheckpoint","SonicOhNo","SonicSusic"],
 					["EmergencyMeeting"],
 					["PdPSeren","TAFroggy","TAKamek"],
-					["PKMNLvlUp","PKMNCherrim"],
+					["PKMNLvlUp","PKMNCherrim","PKMNDitto","PKMNSkiploom"],
 					["MMShakeShake"],
 					["AoEWololo"],
-					["P3Summon"],
+					["P3Summon","P2HeeHo"],
 					["SplatWoomy","SplatPing"],
 					["OneShotSun","OneShotRam"],
 					["TWEWYCrunch","TWEWYNoLimits","TWEWYVerywell"],
@@ -54,10 +53,17 @@
 					["LoZHello","LoZYahaha"],
 					["BSBunger","BSKweeble"],
 					["SourceNotification","SourceMedkit","SourceMeepMerp"],
-					["KHXBlade"],
+					["KHXBlade","KHRikuSorry"],
 					["GTMissileArf","GTGhostMode"],
 					["FECrit"],
 					["RotTHereCatch"],
+					["TheChasePlayerBuzz","TheChaseChaserBuzz"],
+					["KlonoaWahoo"],
+					["PPTArleBAYOEN","PPTExHarddrop","PPTLemresDonuts","PPTOPipi","PPTRingoCosine","PPTSigKapow"],
+					["Touhou6Dead","Touhou61Up","Touhou11Orin"],
+					["AC7Missile"],
+					["TGM_S"],
+					["MvC2CyclopsOpticBlast","MvC3MagnetoMagneticBlast","MvC3DrDoomFootDive","MvC3ModokAnalyzeCube","MvC3MorriganSoulFist","MvC3DeadPoolYoMama","MvC3SentinelNeutralize","MvC3ChrisREatLead","MvC3VergilMotivated","MvC3PWMoreEvidence"],
 					["Mystery"],
 				];
 				let specialBuzzers = { 
@@ -77,12 +83,13 @@
 					BubsyUhOh: ["BubsyUhOh","BubsyAwNuts","BubsyByeBye"],
 					BubsyWhatCouldPawsiblyGoWrong: ["BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyWhatCouldPawsiblyGoWrong","BubsyDoYouBelieveInMiracles"],
 					BubsyCheckOutThatTime: ["BubsyCheckOutThatTime","BubsyGreatScore"],
-					BubsyMyContract: ["BubsyMyContract","BubsyIsThereAVeterinarian","BubsyIsTheWritersStrikeOver","BubsyIAmATrainedPurrfessional","BubsyAPyramidScheme","BubsyWhoWroteThisStuff","BubsyAreYouStillPlayin"],
+					TGM_S: ["TGM_O","TGM_J","TGM_L","TGM_Z","TGM_S","TGM_T","TGM_I"],
+					// BubsyMyContract: ["BubsyMyContract","BubsyIsThereAVeterinarian","BubsyIsTheWritersStrikeOver","BubsyIAmATrainedPurrfessional","BubsyAPyramidScheme","BubsyWhoWroteThisStuff","BubsyAreYouStillPlayin"],
 					RotTHereCatch: ["RotTHereCatch","RotTEatLead"],
 				}
 				let animatedBuzzers = ["SF3KenParry","PlokCLEAR","FECrit"];
 				let buzzerOptionsCurrentRow = 0;
-				let buzzerOptionsTotalRows = 4;
+				let buzzerOptionsTotalRows = 5;
 				function displayBuzzerOptions() {
 					$("#buzzerOptions").html("");
 					$("#buzzerOptions").append("<div class=buzzerGroup id='buzzerOptionsPrev'>\<</div>");
@@ -148,6 +155,10 @@
 
 				socket.on("userInfoToClient", (userInfo) => {
 					userInfoToClient(userInfo);
+				});
+
+				socket.on("reconnectUsers", () => {
+					location.reload();
 				});
 
 				socket.on("gameStateToClient", (currentTeam, currentScore) => {

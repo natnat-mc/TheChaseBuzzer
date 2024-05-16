@@ -122,9 +122,15 @@ io.on("connection", (socket) => {
     io.emit("userInfoToClient", userInfo);
   });
 
+  //used by the host when they refresh the page.
+  socket.on("refreshUserInfo", () => {
+    io.emit("userInfoToClient", userInfo);
+  });
+
   socket.on("unregisterUsers", () => {
     userInfo = new Object();
     io.emit("userInfoToClient", userInfo);
+    io.emit("reconnectUsers");
   });
 
   socket.on("objectionToServer", (userName) => {
