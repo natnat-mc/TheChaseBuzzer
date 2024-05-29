@@ -1,7 +1,13 @@
+var buzzerCache = new Map();
+
 function userInfoToClient(userInfo) {
     for (const user in userInfo) {
         re = new RegExp("\\W","g");
         const userId = user.replaceAll(re,"_");
+        
+        
+        buzzerCache.set(userInfo[user].buzzerId, new Audio(userInfo[user].buzzerId+".wav"));
+
         if ($("#userListPanel").find("#"+userId).length >= 1) {
             //update buzzer icon of existing user
             $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId",userInfo[user].buzzerId);
@@ -34,7 +40,7 @@ function buzzInfoToClient(buzzInfo, soundOn) {
         $("#firstBuzz").html(buzzInfo[0].userName);
         const userId = buzzInfo[0].userName.replaceAll(" ","_");
         let buzzerId = $("#userListPanel").find("#"+userId).find("img").attr("data-buzzerId");
-        let buzzerSound = new Audio(buzzerId+".wav");
+        let buzzerSound = buzzerCache.get(buzzerId);
         if (soundOn == true) {
             buzzerSound.play();
         }
