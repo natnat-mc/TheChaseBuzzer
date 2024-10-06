@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>You can now play as Luigi</title>
 		<link rel="stylesheet" href="styleMain.css">
 		<script src="browserFunctions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -25,14 +26,14 @@
 					["Kirbeep","KirbyMic2","KirbySquishy","KirbyBugzzy","KirbyKracko"],
 					["Killer7Laugh"],
 					["TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight","TheNumberEight"],
-					["Jiggluigibat","SaturnHonk","Kirbeep","UltiFinishZoom","UltiChromSorry"],
-					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere","WLAlright","WLHurryUp","WLOhBoy"],
+					["Jiggluigibat","SaturnHonk","Kirbeep","UltiFinishZoom","UltiChromSorry","MeleeLuigiYipee"],
+					["MarioBoing","MarioPenguin","MarioCoin","MPYosh","MPDogF","MPCatF","MarioPlum","WLHelloThere","WLAlright","WLHurryUp","WLOhBoy","MeleeLuigiYipee"],
 					["PizzaTowerTaunt1"],
 					["EBWow","EBAttack1","SaturnHonk"],
 					["AAHoldIt","AATakeThat"],
 					["Ooh"],
 					["PikminThrow","Pikmin2LouieAMV","Pikmin2Olimar","Pikmin2President","Pikmin2Breadbug"],
-					["FF9Moogle"],
+					["FF9Moogle","FF7RebirthChadleyCloud","FF11FishCatch"],
 					["MGSAlert"],
 					["HKAdido","HKGrub","HKShrumalWarriorWahw"],
 					["DKOK"],
@@ -50,13 +51,16 @@
 					["EWJPain"],
 					["SF3KenParry","SFBrazil"],
 					["DESick"],
+					["RotTHereCatch"],
+					["DoomOof","DoomPowerup"],
+					["AoWMagic1","AoWMagic4"],
+					["ROR2Lvlup"],
 					["LoZHello","LoZYahaha"],
 					["BSBunger","BSKweeble"],
 					["SourceNotification","SourceMedkit","SourceMeepMerp"],
 					["KHXBlade","KHRikuSorry"],
 					["GTMissileArf","GTGhostMode"],
 					["FECrit"],
-					["RotTHereCatch"],
 					["TheChasePlayerBuzz","TheChaseChaserBuzz","TheChasePotato"],
 					["KlonoaWahoo"],
 					["PPTArleBAYOEN","PPTExHarddrop","PPTLemresDonuts","PPTOPipi","PPTRingoCosine","PPTSigKapow"],
@@ -65,6 +69,7 @@
 					["TGM_S"],
 					["MvC2CyclopsOpticBlast","MvC3MagnetoMagneticBlast","MvC3DrDoomFootDive","MvC3ModokAnalyzeCube","MvC3MorriganSoulFist","MvC3DeadPoolYoMama","MvC3SentinelNeutralize","MvC3ChrisREatLead","MvC3VergilMotivated","MvC3PWMoreEvidence"],
 					["MegaManXDash","MegaManXTeleport","MegaManXEnergyTankFull","MegaMan4Energy","MegaMan4Life","MegaMan4Teleport"],
+					["LaMulanaTrap","LaMulanaXmailer"],
 					["Mystery"],
 				];
 				let specialBuzzers = { 
@@ -90,7 +95,7 @@
 				}
 				let animatedBuzzers = ["SF3KenParry","PlokCLEAR","FECrit"];
 				let buzzerOptionsCurrentRow = 0;
-				let buzzerOptionsTotalRows = 5;
+				let buzzerOptionsTotalRows = Math.ceil(buzzerOptions.length / 10);
 				function displayBuzzerOptions() {
 					$("#buzzerOptions").html("");
 					$("#buzzerOptions").append("<div class=buzzerGroup id='buzzerOptionsPrev'>\<</div>");
