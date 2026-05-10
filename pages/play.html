@@ -9,7 +9,7 @@
 	
 		<script>
 			$(document).ready(function() {
-				var socket = io();
+				var socket = io(location.origin, {transports:['websocket']});
 				let buzzInTime;//for ping check
 				let queryString = new URL(location.href);
 				let userName = queryString.searchParams.get("user");
